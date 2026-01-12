@@ -22,6 +22,8 @@ Unless otherwise specified, all examples are compiled with the latest [clang-p29
 
 - [Class interface code injection](https://godbolt.org/z/7jv9aj8Mh)
 
+  Based on Experimental EDG Reflection Implementation (<https://github.com/cern-nextgen/reflmempp>)
+
 ### From [reflection for C++26如期而至](https://zhuanlan.zhihu.com/p/1919860255870948496):
 
 - [Enum to string](https://godbolt.org/z/8a6W9vjzz)
@@ -31,6 +33,10 @@ Unless otherwise specified, all examples are compiled with the latest [clang-p29
 - [An implementation of tuple](https://godbolt.org/z/b6K6YvddP)
 
 - [Argument parser](https://godbolt.org/z/YovYWsx17)
+
+### Experimental JSON Builder based on reflection
+
+<https://github.com/simdjson/experimental_json_builder>
 
 ## A Tutorial for Building [Clang-P2996](https://github.com/bloomberg/clang-p2996/tree/p2996) on Windows
 
