@@ -16,7 +16,7 @@ Unless otherwise specified, all examples are compiled with the latest [clang-p29
 
 - [Polymorphism code generation](https://godbolt.org/z/aP4dKfqjo)
 
-  Pre-C++26 implementation: <https://godbolt.org/z/MEPvEMbqP>
+  A pre-C++26 implementation: <https://godbolt.org/z/MEPvEMbqP>
 
 - [Class interface code generation](https://godbolt.org/z/Y75Wr3nGe)
 
@@ -34,7 +34,7 @@ Unless otherwise specified, all examples are compiled with the latest [clang-p29
 
 - [Argument parser](https://godbolt.org/z/YovYWsx17)
 
-### Experimental JSON Builder based on reflection
+### Experimental JSON Builder based on reflection:
 
 <https://github.com/simdjson/experimental_json_builder>
 
