@@ -72,7 +72,7 @@ Integrate MSYS2 terminals into Windows Terminal for a better experience:
 2. Open MSYS2 CLANG64 and install the prerequisites:
 
 ```bash
-pacman -S mingw-w64-clang-x86_64-toolchain mingw-w64-clang-x86_64-cmake mingw-w64-clang-x86_64-ninja git python base-devel
+pacman -S mingw-w64-clang-x86_64-toolchain mingw-w64-clang-x86_64-cmake mingw-w64-clang-x86_64-ninja git
 
 # Verify installation
 clang --version
@@ -112,7 +112,6 @@ cmake -S llvm -B build \
   -DLIBCXXABI_USE_COMPILER_RT=OFF \
   -DLIBCXXABI_USE_LLVM_UNWINDER=ON \
   -DLIBCXX_INSTALL_MODULES=ON \
-  -DLLVM_ENABLE_TERMINFO=OFF \
   -DLLVM_ENABLE_ZLIB=OFF \
   -DLLVM_ENABLE_ZSTD=OFF \
   -DRUNTIMES_CMAKE_ARGS="-DCMAKE_SYSROOT=$(cygpath -m $MSYSTEM_PREFIX)"
