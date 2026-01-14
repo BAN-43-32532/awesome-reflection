@@ -68,17 +68,15 @@ Integrate MSYS2 terminals into Windows Terminal for a better experience:
 
 ### 3. Configure the Environment in MSYS2
 
-1. Open MSYS2 MSYS. Run `pacman -Syu`. Then close the terminal and reopen it. Run `pacman -Syu` again.
+1. Open MSYS2 MSYS. Run `pacman -Syu`. Then close and reopen the terminal, and run `pacman -Syu` again.
 2. Open MSYS2 CLANG64 and install the prerequisites:
 
 ```bash
-pacman -S mingw-w64-clang-x86_64-toolchain mingw-w64-clang-x86_64-cmake mingw-w64-clang-x86_64-ninja git
-
-# Verify installation
-clang --version
-cmake --version
-ninja --version
+pacman -S mingw-w64-x86_64-toolchain mingw-w64-clang-x86_64-toolchain mingw-w64-clang-x86_64-cmake mingw-w64-clang-x86_64-ninja git
 ```
+You can run `clang --version` etc. to verify installation.
+
+3. Add `C:\msys64\clang64\bin` and `C:\msys64\mingw64\bin` to Windows system path.
 
 ### 4. Fetch [Clang-P2996](https://github.com/bloomberg/clang-p2996/tree/p2996) source
 
@@ -95,7 +93,7 @@ cd clang-p2996
 cmake -S llvm -B build \
   -G Ninja \
   -DCMAKE_BUILD_TYPE=Release \
-  -DCMAKE_INSTALL_PREFIX="$(pwd)/install" \
+  -DCMAKE_INSTALL_PREFIX="$PWD/install" \
   -DLLVM_ENABLE_PROJECTS="clang;lld" \
   -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi;libunwind" \
   -DLLVM_TARGETS_TO_BUILD="X86" \
@@ -114,7 +112,7 @@ cmake -S llvm -B build \
   -DLIBCXX_INSTALL_MODULES=ON \
   -DLLVM_ENABLE_ZLIB=OFF \
   -DLLVM_ENABLE_ZSTD=OFF \
-  -DRUNTIMES_CMAKE_ARGS="-DCMAKE_SYSROOT=$(cygpath -m $MSYSTEM_PREFIX)"
+  -DRUNTIMES_CMAKE_ARGS="-DCMAKE_SYSROOT=$MSYSTEM_PREFIX"
 
 ninja -C build install
 ```
@@ -137,8 +135,8 @@ Create `./CMakePresets.json`:
         "CMAKE_BUILD_TYPE": "Release",
         "CMAKE_CXX_COMPILER": "C:/path/to/clang-p2996/install/bin/clang++.exe",
         "CMAKE_C_COMPILER": "C:/path/to/clang-p2996/install/bin/clang.exe",
-        "CMAKE_CXX_FLAGS": "-O3 -stdlib=libc++ -fparameter-reflection -Wno-unused -Wno-c23-extensions -freflection-latest -fexpansion-statements -IC:/path/to/clang-p2996/install/include/c++/v1",
-        "CMAKE_EXE_LINKER_FLAGS": "-fuse-ld=lld -LC:/path/to/clang-p2996/install/lib -stdlib=libc++ -static -lc++abi -lunwind -lucrt",
+        "CMAKE_CXX_FLAGS": "-IC:/path/to/clang-p2996/install/include/c++/v1 -O3 -stdlib=libc++ -fparameter-reflection -Wno-c23-extensions -freflection-latest -fexpansion-statements",
+        "CMAKE_EXE_LINKER_FLAGS": "-LC:/path/to/clang-p2996/install/lib -static -fuse-ld=lld -lc++abi -lunwind -lucrt",
         "CMAKE_TRY_COMPILE_TARGET_TYPE": "STATIC_LIBRARY"
       }
     }
