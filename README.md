@@ -90,19 +90,15 @@ cd clang-p2996
 ### 5. Build
 
 ```bash
-cmake -S llvm -B build \
-  -G Ninja \
+cmake -S llvm -B build -G Ninja \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_INSTALL_PREFIX="$PWD/install" \
   -DLLVM_ENABLE_PROJECTS="clang;lld" \
   -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi;libunwind" \
   -DLLVM_TARGETS_TO_BUILD="X86" \
   -DLLVM_DEFAULT_TARGET_TRIPLE=x86_64-w64-windows-gnu \
-  -DLLVM_HOST_TRIPLE=x86_64-w64-windows-gnu \
   -DCMAKE_C_COMPILER=clang \
   -DCMAKE_CXX_COMPILER=clang++ \
-  -DCMAKE_C_COMPILER_TARGET=x86_64-w64-windows-gnu \
-  -DCMAKE_CXX_COMPILER_TARGET=x86_64-w64-windows-gnu \
   -DLIBCXX_ENABLE_SHARED=OFF \
   -DLIBCXXABI_ENABLE_SHARED=OFF \
   -DLIBUNWIND_ENABLE_SHARED=OFF \
@@ -110,8 +106,6 @@ cmake -S llvm -B build \
   -DLIBCXXABI_USE_COMPILER_RT=OFF \
   -DLIBCXXABI_USE_LLVM_UNWINDER=ON \
   -DLIBCXX_INSTALL_MODULES=ON \
-  -DLLVM_ENABLE_ZLIB=OFF \
-  -DLLVM_ENABLE_ZSTD=OFF \
   -DRUNTIMES_CMAKE_ARGS="-DCMAKE_SYSROOT=$MSYSTEM_PREFIX"
 
 ninja -C build install
