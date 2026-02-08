@@ -87,7 +87,7 @@ git clone --depth 1 --branch p2996 https://github.com/bloomberg/clang-p2996.git
 cd clang-p2996
 ```
 
-### 5. Build
+### 5. Build Clang-P2996
 
 ```bash
 cmake -S llvm -B build -G Ninja \
@@ -111,7 +111,7 @@ cmake -S llvm -B build -G Ninja \
 ninja -C build install
 ```
 
-### 6. Compile
+### 6. Build Your C++26 Code
 
 Suppose you have a C++ source file `./main.cpp`.
 
