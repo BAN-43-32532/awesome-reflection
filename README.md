@@ -38,6 +38,10 @@ Unless otherwise specified, all examples are compiled with the latest [clang-p29
 
 <https://github.com/simdjson/experimental_json_builder>
 
+### Compile-Time TOML parser (WIP):
+
+<https://github.com/BAN-43-32532/toml26>
+
 ## A Tutorial for Building [Clang-P2996](https://github.com/bloomberg/clang-p2996/tree/p2996) on Windows
 
 ### 1. Install MSYS2
