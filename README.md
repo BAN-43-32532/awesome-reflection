@@ -1,6 +1,6 @@
 # Awesome Reflection
 
-A collection of C++26 reflection materials.
+A collection of C++26 reflection materials, including a tutorial for building [clang-p2996](https://github.com/bloomberg/clang-p2996/tree/p2996) on Windows.
 
 ## List of Examples
 
