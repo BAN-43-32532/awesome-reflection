@@ -1,6 +1,6 @@
 # Awesome Reflection
 
-A collection of C++26 reflection materials, including a tutorial for building [clang-p2996](https://github.com/bloomberg/clang-p2996/tree/p2996) on Windows.
+A collection of C++26 reflection materials, _with_ a tutorial for **building [clang-p2996](https://github.com/bloomberg/clang-p2996/tree/p2996) on Windows**.
 
 ## List of Examples
 
@@ -46,7 +46,7 @@ Unless otherwise specified, all examples are compiled with the latest [clang-p29
 
 ### 1. Install MSYS2
 
-Download and install [MSYS2](https://www.msys2.org/). It is recommended to install it at the default path (`C:\msys64`). This tutorial assumes the default path.
+Download and install [MSYS2](https://www.msys2.org/). It is recommended to install it at the default path (`C:\msys64`) which the following assumes.
 
 ### 2. (Optional) Configure Windows Terminal
 
@@ -78,7 +78,7 @@ Integrate MSYS2 terminals into Windows Terminal for a better experience:
 ```bash
 pacman -S mingw-w64-x86_64-toolchain mingw-w64-clang-x86_64-toolchain mingw-w64-clang-x86_64-cmake mingw-w64-clang-x86_64-ninja git
 ```
-You can run `clang --version` etc. to verify installation.
+Run `clang --version` etc. to verify installation and check the clang version.
 
 3. Add `C:\msys64\clang64\bin` and `C:\msys64\mingw64\bin` to Windows system path.
 
@@ -91,7 +91,30 @@ git clone --depth 1 --branch p2996 https://github.com/bloomberg/clang-p2996.git
 cd clang-p2996
 ```
 
+### 4.5. Workaround for C++ module support
+
+If you intend to use C++20 modules or `std` module with CMake and `clang-p2996`, open `clang-p2996/clang/lib/Frontend/CompilerInvocation.cpp` and apply the following changes:
+
+- Locate `getExceptionHandlingName` function definition. Add the following to the switch block:
+
+```cpp
+case LangOptions::ExceptionHandlingKind::WinEH:
+return "seh";
+```
+
+- Locate `ParseLangArgs` function definition. Make the following modification:
+
+```cpp
+.Case("sjlj", LangOptions::ExceptionHandlingKind::SjLj)
+.Case("seh", LangOptions::ExceptionHandlingKind::WinEH) // ADD THIS LINE
+.Case("wineh", LangOptions::ExceptionHandlingKind::WinEH)
+```
+
+The effectiveness may vary with future updates to `clang-p2996` and `CMake`. See [this](https://github.com/BAN-43-32532/cmake-import-std) for a practical use of C++ modules. 
+
 ### 5. Build Clang-P2996
+
+Run the following scripts in MSYS2 CLANG64. Note that `-Wno-error` is required for building `clang-p2996` (based on Clang 21.0.0) with Clang 22 installed from Step 3. 
 
 ```bash
 cmake -S llvm -B build -G Ninja \
@@ -110,6 +133,8 @@ cmake -S llvm -B build -G Ninja \
   -DLIBCXXABI_USE_COMPILER_RT=OFF \
   -DLIBCXXABI_USE_LLVM_UNWINDER=ON \
   -DLIBCXX_INSTALL_MODULES=ON \
+  -DCMAKE_C_FLAGS="-Wno-error" \
+  -DCMAKE_CXX_FLAGS="-Wno-error" \
   -DRUNTIMES_CMAKE_ARGS="-DCMAKE_SYSROOT=$MSYSTEM_PREFIX"
 
 ninja -C build install
@@ -151,7 +176,7 @@ project(ReflectionTest LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 26)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_executable(main main.cpp)
+add_executable(test main.cpp)
 ```
 
 Run
