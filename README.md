@@ -158,7 +158,7 @@ Create `./CMakePresets.json`:
         "CMAKE_BUILD_TYPE": "Release",
         "CMAKE_CXX_COMPILER": "C:/path/to/clang-p2996/install/bin/clang++.exe",
         "CMAKE_C_COMPILER": "C:/path/to/clang-p2996/install/bin/clang.exe",
-        "CMAKE_CXX_FLAGS": "-IC:/path/to/clang-p2996/install/include/c++/v1 -O3 -stdlib=libc++ -fparameter-reflection -Wno-c23-extensions -freflection-latest -fexpansion-statements",
+        "CMAKE_CXX_FLAGS": "-D_UCRT -IC:/path/to/clang-p2996/install/include/c++/v1 -O3 -stdlib=libc++ -fparameter-reflection -Wno-c23-extensions -freflection-latest -fexpansion-statements",
         "CMAKE_EXE_LINKER_FLAGS": "-LC:/path/to/clang-p2996/install/lib -static -fuse-ld=lld -lc++abi -lunwind -lucrt",
         "CMAKE_TRY_COMPILE_TARGET_TYPE": "STATIC_LIBRARY"
       }
